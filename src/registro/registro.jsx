@@ -1,28 +1,52 @@
 import React from 'react';
+import Swal from 'sweetalert2';
+import { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Logo from '../imagen/logo.png'
-import {useStyles} from '../styles.js'
+import { useStyles } from '../styles.js'
 
 
 export default function Registro() {
   const classes = useStyles();
 
+  const [values, setValues] = useState({});
+  const [valuePass, setValuePass] = useState({
+    password: '',
+    showPassword: false,
+  });
+  const handleClickShowPassword = () => {
+    setValuePass({ ...valuePass, showPassword: !valuePass.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const handleChange = (event) => {
+    event.preventDefault();
+    const { id, value } = event.target;
+    setValues({ ...values, [id]: value });
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-      <Avatar variant="rounded" 
-        src={Logo}
-        alt="logo"
-        className={classes.large} >
+        <Avatar variant="rounded"
+          src={Logo}
+          alt="logo"
+          className={classes.large} >
         </Avatar>
         <Typography component="h1" variant="h5">
           Registro
@@ -30,7 +54,8 @@ export default function Registro() {
         <form className={classes.form} autoComplete="off">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <Input
+                placeholder="Nombres"
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
@@ -42,7 +67,8 @@ export default function Registro() {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
+              <Input
+                placeholder="Apellido"
                 variant="outlined"
                 required
                 fullWidth
@@ -53,7 +79,8 @@ export default function Registro() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <Input
+                placeholder="Email"
                 variant="outlined"
                 required
                 fullWidth
@@ -64,27 +91,54 @@ export default function Registro() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <Input
                 variant="outlined"
                 required
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleChange}
+                placeholder="Password"
+                type={valuePass.showPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <Input
                 variant="outlined"
                 required
                 fullWidth
                 name="password"
                 label="Repetir Password"
-                type="password"
                 id="password2"
                 autoComplete="current-password"
+                onChange={handleChange}
+                placeholder="Repetir Password"
+                required="true"
+                type={valuePass.showPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
               />
             </Grid>
             <Grid item xs={12}>
