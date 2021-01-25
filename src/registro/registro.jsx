@@ -6,7 +6,6 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Logo from '../imagen/logo.png'
@@ -24,12 +23,11 @@ export default function Registro() {
         src={Logo}
         alt="logo"
         className={classes.large} >
-          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Registro
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} autoComplete="off">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -39,7 +37,7 @@ export default function Registro() {
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label="Nombres"
                 autoFocus
               />
             </Grid>
@@ -49,7 +47,7 @@ export default function Registro() {
                 required
                 fullWidth
                 id="lastName"
-                label="Last Name"
+                label="Apellido"
                 name="lastName"
                 autoComplete="lname"
               />
@@ -60,7 +58,7 @@ export default function Registro() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Email"
                 name="email"
                 autoComplete="email"
               />
@@ -78,6 +76,18 @@ export default function Registro() {
               />
             </Grid>
             <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Repetir Password"
+                type="password"
+                id="password2"
+                autoComplete="current-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="Acepto terminos y condiciones"
@@ -91,7 +101,7 @@ export default function Registro() {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            Registrarme
           </Button>
         </form>
       </div>
