@@ -83,7 +83,7 @@ export default function Registro() {
       footer:'Ahora inicia sesion',
       timer: 2500
     })
-    setTimeout(() => { history.push('/inicio')}, 2300);
+    setTimeout(() => { history.push('/')}, 2300);
   }
   const handleClickOpen = () => {
     setOpen(true);
