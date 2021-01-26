@@ -1,17 +1,10 @@
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
-const sha256 = require("js-sha256");
-const jwt = require("jwt-then");
+
 
 
 exports.register = async (req, res) => {
   const { firstName, lastName,  email, password } = req.body;
-
-  const emailRegex = /@gmail.com|@yahoo.com|@hotmail.com|@live.com/;
-
-  if (!emailRegex.test(email)) throw "Email is not supported from your domain.";
-  if (password.length < 6) throw "Password must be atleast 6 characters long.";
-
   const userExists = await User.findOne({
     email,
   });

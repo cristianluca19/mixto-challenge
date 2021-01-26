@@ -6,15 +6,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use('/user', require('./routes/user'));
-
-const erroHandlers = require('./handlers/errorHandlers');
-app.use(erroHandlers.notFound);
-app.use(erroHandlers.mongoseErrors);
-if(process.env.ENV === 'DEVELOPMENT') {
-    app.use(erroHandlers.developmentErrors)
-}else {
-    app.use(erroHandlers.productionErrors)
-}
+app.use('/', require('./routes/user'));
 
 module.exports = app;

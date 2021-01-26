@@ -16,7 +16,7 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Logo from '../imagen/logo.png';
 import { useStyles } from '../styles.js'
-import axios from 'axios';
+
 
 
 const initialValues = {
@@ -50,9 +50,10 @@ export default function Inicio() {
   };
   const handleSubmit = async(event) => {
     event.preventDefault();
-    await axios.post('http://localhost:8000', values)
+    await axios.post('http://localhost:8000/login', values)
     .then(res=>{
-      if(res.ok){
+      console.log("res",res)
+      if(res.status===200){
 
         Swal.fire({
           title: 'Bienvenido ' + initialValues.email,

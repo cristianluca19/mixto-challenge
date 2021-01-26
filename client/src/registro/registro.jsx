@@ -78,6 +78,7 @@ export default function Registro() {
     event.preventDefault();
     await axios.post('http://localhost:8000/register', values)
       .then(res=>{
+        console.log("res",res)
         if(res.ok){
       Swal.fire({
       position: 'top',
@@ -90,7 +91,9 @@ export default function Registro() {
     setTimeout(() => { history.push('/')}, 2300);
       }
     })
-   
+    .catch(err=>{
+      console.log(err)
+    })
   }
   const handleClickOpen = () => {
     setOpen(true);
