@@ -28,7 +28,7 @@ import { useStyles } from '../styles.js'
 
 export default function Registro() {
   const classes = useStyles();
-
+  
   const [values, setValues] = useState({});
   const [validation, setValidation] = useState(true)
   const [validationEmail, setValidationEmail] = useState(true)
@@ -39,11 +39,11 @@ export default function Registro() {
     showPassword: false,
   });
   const history = useHistory()
-
+  
   const handleClickShowPassword = () => {
     setValuePass({ ...valuePass, showPassword: !valuePass.showPassword });
   };
-
+  
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -52,7 +52,7 @@ export default function Registro() {
     const { id, value } = event.target;
     setValues({ ...values, [id]: value });
   };
-
+  
   const validations = () => {
     setTimeout(() => {
       if (values.password === values.password2) {
@@ -72,11 +72,11 @@ export default function Registro() {
       }
     }
   }
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     Swal.fire({
-      position: 'top-center',
+      position: 'top',
       icon: 'success',
       title: 'Felicitaciones ',
       text: 'Tu usuario se ha creado con exito',
@@ -91,12 +91,12 @@ export default function Registro() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   useEffect(() => {
-    validations()
     validationsEmail()
-  }, [values])
-
+    validations()
+  }, [validationsEmail,validations])
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -110,7 +110,7 @@ export default function Registro() {
           Registro
         </Typography>
         <Grid item>
-          <Link href="/inicio" variant="body" className={classes.paper}>
+          <Link href="/inicio" variant="body1" className={classes.paper}>
             Ya tienes cuenta? Inicia sesion
         </Link>
         </Grid>
@@ -173,8 +173,8 @@ export default function Registro() {
                 type={valuePass.showPassword ? 'text' : 'password'}
                 endAdornment={
                   <InputAdornment position="end">
-                    <IconButton>
-                      <ErrorOutlineIcon variant="outlined" color="primary" onMouseDown={handleMouseDownPassword} onClick={handleClickOpen}>
+                    <IconButton onClick={handleClickOpen}>
+                      <ErrorOutlineIcon variant="outlined" color="primary" onMouseDown={handleMouseDownPassword} >
                         Open dialog
                 </ErrorOutlineIcon>
                     </IconButton>
@@ -224,7 +224,6 @@ export default function Registro() {
                 autoComplete="current-password"
                 onChange={handleChange}
                 placeholder="Repetir Password"
-                required="true"
                 type={valuePass.showPassword ? 'text' : 'password'}
                 endAdornment={
                   <InputAdornment position="end">
