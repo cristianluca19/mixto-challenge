@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 
-
-
 exports.register = async (req, res) => {
-  const { firstName, lastName,  email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
   const userExists = await User.findOne({
     email,
   });

@@ -29,7 +29,7 @@ import { useStyles } from '../styles.js'
 
 export default function Registro() {
   const classes = useStyles();
-  
+
   const [values, setValues] = useState({});
   const [validation, setValidation] = useState(true)
   const [validationEmail, setValidationEmail] = useState(true)
@@ -40,11 +40,11 @@ export default function Registro() {
     showPassword: false,
   });
   const history = useHistory()
-  
+
   const handleClickShowPassword = () => {
     setValuePass({ ...valuePass, showPassword: !valuePass.showPassword });
   };
-  
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -53,7 +53,7 @@ export default function Registro() {
     const { id, value } = event.target;
     setValues({ ...values, [id]: value });
   };
-  
+
   const validations = () => {
     setTimeout(() => {
       if (values.password === values.password2) {
@@ -73,27 +73,27 @@ export default function Registro() {
       }
     }
   }
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await axios.post('http://localhost:8000/register', values)
-      .then(res=>{
-        console.log("res",res)
-        if(res.ok){
-      Swal.fire({
-      position: 'top',
-      icon: 'success',
-      title: 'Felicitaciones ',
-      text: 'Tu usuario se ha creado con exito',
-      footer:'Ahora inicia sesion',
-      timer: 2500
-    })
-    setTimeout(() => { history.push('/')}, 2300);
-      }
-    })
-    .catch(err=>{
-      console.log(err)
-    })
+    await axios.post(`${REACT_APP_BACKEND_URL}/register`, values)
+      .then(res => {
+        console.log("res", res)
+        if (res.ok) {
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Felicitaciones ',
+            text: 'Tu usuario se ha creado con exito',
+            footer: 'Ahora inicia sesion',
+            timer: 2500
+          })
+          setTimeout(() => { history.push('/') }, 2300);
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
   const handleClickOpen = () => {
     setOpen(true);
@@ -101,14 +101,14 @@ export default function Registro() {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   useEffect(() => {
     validationsEmail()
     validations()
-  }, [validationsEmail,validations])
-  
+  }, [validationsEmail, validations])
+
   return (
-    <Container  maxWidth="xs">
+    <Container maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar variant="rounded"
@@ -124,7 +124,7 @@ export default function Registro() {
             Ya tienes cuenta? Inicia sesion
         </Link>
         </Grid>
-        <form className={classes.form}  onSubmit={handleSubmit} autoComplete="off">
+        <form className={classes.form} onSubmit={handleSubmit} autoComplete="off">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Input
@@ -263,7 +263,6 @@ export default function Registro() {
               variant="contained"
               color="primary"
               className={classes.submit}
-             
             >
               Registrarme
           </Button>

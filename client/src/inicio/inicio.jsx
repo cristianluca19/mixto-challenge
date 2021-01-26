@@ -19,11 +19,6 @@ import { useStyles } from '../styles.js'
 
 
 
-const initialValues = {
-  email: 'cristianlucatti@gmail.com',
-  password: 'a'
-};
-
 export default function Inicio() {
   const classes = useStyles();
 
@@ -48,39 +43,39 @@ export default function Inicio() {
     const { id, value } = event.target;
     setValues({ ...values, [id]: value });
   };
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    await axios.post('http://localhost:8000/login', values)
-    .then(res=>{
-      console.log("res",res)
-      if(res.status===200){
+    await axios.post(`${REACT_APP_BACKEND_URL}/login`, values)
+      .then(res => {
+        console.log("res", res)
+        if (res.status === 200) {
 
-        Swal.fire({
-          title: 'Bienvenido ' + initialValues.email,
-          imageUrl: Logo,
-          imageWidth: 200,
-          imageHeight: 200,
-          icon: 'success',
-          imageAlt: 'Logo',
-          showConfirmButton: false,
-          timer: 2500
-        })
-        redireccionar()
-      }
-    })
-    
+          Swal.fire({
+            title: 'Bienvenido ' + values.email,
+            imageUrl: Logo,
+            imageWidth: 200,
+            imageHeight: 200,
+            icon: 'success',
+            imageAlt: 'Logo',
+            showConfirmButton: false,
+            timer: 2500
+          })
+          redireccionar()
+        }
+      })
+
       .catch(
         Swal.fire({
-        icon: 'error',
-        title: 'Oops...Algo salio mal!',
-        text: 'Verifique los datos e ingrese nuevamente',
-        footer: '<a href="/registro">Si no tiene cuentra registrese aqui</a>'
-      })
-    )
+          icon: 'error',
+          title: 'Oops...Algo salio mal!',
+          text: 'Verifique los datos e ingrese nuevamente',
+          footer: '<a href="/registro">Si no tiene cuentra registrese aqui</a>'
+        })
+      )
   };
 
   return (
-    <Container  maxWidth="xs">
+    <Container maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar variant="rounded"
@@ -130,7 +125,6 @@ export default function Inicio() {
                 }
               />
             </Grid>
-
           </Grid>
           <Button
             type="submit"
