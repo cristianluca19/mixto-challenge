@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
@@ -15,6 +16,7 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Logo from '../imagen/logo.png';
 import { useStyles } from '../styles.js'
+import axios from 'axios';
 
 
 const initialValues = {
@@ -46,33 +48,38 @@ export default function Inicio() {
     const { id, value } = event.target;
     setValues({ ...values, [id]: value });
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    if (values.email === initialValues.email && values.password === initialValues.password) {
-      Swal.fire({
-        title: 'Bienvenido ' + initialValues.email,
-        imageUrl: Logo,
-        imageWidth: 200,
-        imageHeight: 200,
-        icon: 'success',
-        imageAlt: 'Logo',
-        showConfirmButton: false,
-        timer: 2500
-      })
-      redireccionar()
-    } else {
-      Swal.fire({
+    await axios.post('http://localhost:8000', values)
+    .then(res=>{
+      if(res.ok){
+
+        Swal.fire({
+          title: 'Bienvenido ' + initialValues.email,
+          imageUrl: Logo,
+          imageWidth: 200,
+          imageHeight: 200,
+          icon: 'success',
+          imageAlt: 'Logo',
+          showConfirmButton: false,
+          timer: 2500
+        })
+        redireccionar()
+      }
+    })
+    
+      .catch(
+        Swal.fire({
         icon: 'error',
         title: 'Oops...Algo salio mal!',
         text: 'Verifique los datos e ingrese nuevamente',
         footer: '<a href="/registro">Si no tiene cuentra registrese aqui</a>'
       })
-    }
-    return;
+    )
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container  maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar variant="rounded"
@@ -83,7 +90,6 @@ export default function Inicio() {
         <Typography component="h1" variant="h5">
           Inicio de Sesión
         </Typography>
-        {/* autoComplete="off por si el form se quiere sin autocompletado */}
         <form className={classes.form} onSubmit={handleSubmit} autoComplete="off">
           <Grid container spacing={2}>
             <Grid item xs={12}>

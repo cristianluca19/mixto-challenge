@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
+import axios from 'axios'
 import { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
@@ -73,9 +74,12 @@ export default function Registro() {
     }
   }
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    Swal.fire({
+    await axios.post('http://localhost:8000/register', values)
+      .then(res=>{
+        if(res.ok){
+      Swal.fire({
       position: 'top',
       icon: 'success',
       title: 'Felicitaciones ',
@@ -84,6 +88,9 @@ export default function Registro() {
       timer: 2500
     })
     setTimeout(() => { history.push('/')}, 2300);
+      }
+    })
+   
   }
   const handleClickOpen = () => {
     setOpen(true);
@@ -98,7 +105,7 @@ export default function Registro() {
   }, [validationsEmail,validations])
   
   return (
-    <Container component="main" maxWidth="xs">
+    <Container  maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar variant="rounded"

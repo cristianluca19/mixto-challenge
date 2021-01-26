@@ -5,7 +5,7 @@ const jwt = require("jwt-then");
 
 
 exports.register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName,  email, password } = req.body;
 
   const emailRegex = /@gmail.com|@yahoo.com|@hotmail.com|@live.com/;
 
@@ -19,9 +19,10 @@ exports.register = async (req, res) => {
   if (userExists) throw "User with same email already exits.";
 
   const user = new User({
-    name,
+    firstName,
+    lastName,
     email,
-    password: sha256(password + process.env.SALT),
+    password,
   });
 
   await user.save();
@@ -35,15 +36,12 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({
     email,
-    password: sha256(password + process.env.SALT),
+    password,
   });
 
   if (!user) throw "Email and/or Password did not match.";
 
-  const token = await jwt.sign({ id: user.id }, process.env.SECRET);
-
   res.json({
     message: "User logged in successfully!",
-    token,
   });
 };

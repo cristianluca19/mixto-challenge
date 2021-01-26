@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from "react-router-dom";
+import {BrowserRouter, Route , Switch} from "react-router-dom";
 import Registro from'./registro/registro.jsx'
 import Inicio from './inicio/inicio.jsx'
 
@@ -8,8 +8,12 @@ import './App.css';
 function App() {
   return (
     <div className='App'>
-      <Route extact path='/' render={() => <Inicio />} />
-      <Route extact path='/registro' render={() => <Registro />} />
+      <BrowserRouter>
+      <Route extact path='/' component={Inicio} /> 
+      <Route extact path='/registro' component={Registro} /> 
+      <Switch> 
+      </Switch>
+      </BrowserRouter>
     </div>
   );
 }

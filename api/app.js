@@ -7,7 +7,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use('/user', require('./routes/user'));
-app.use('/dashboard', require('./routes/dashboard'));
 
 const erroHandlers = require('./handlers/errorHandlers');
 app.use(erroHandlers.notFound);

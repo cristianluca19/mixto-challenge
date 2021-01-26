@@ -1,5 +1,4 @@
 require('dotenv').config();
-const seedUsers = require('./seeds/users-seeder');
 const mongoose = require('mongoose');
 const jwt = require('jwt-then');
 const User = mongoose.model('User');
@@ -20,7 +19,6 @@ mongoose.connection.once('open', () => {
         console.log("Users removed!!");
     })
     console.log("MongoDB Connected!")
-    seedUsers();
 });
 
 require('./models/User')
@@ -41,8 +39,6 @@ const io = require('socket.io')(server, {
 
 io.use(async (socket, next) => {
     try {
-        const token = socket.handshake.query.token;
-        const payload = await jwt.verify(token, process.env.SECRET);
         socket.userId = payload.id;
         next();
     } catch (err) {}
