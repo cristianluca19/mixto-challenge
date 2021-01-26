@@ -120,7 +120,7 @@ export default function Registro() {
           Registro
         </Typography>
         <Grid item>
-          <Link href="/inicio" variant="body1" className={classes.paper}>
+          <Link href="/" variant="body1" className={classes.paper}>
             Ya tienes cuenta? Inicia sesion
         </Link>
         </Grid>
