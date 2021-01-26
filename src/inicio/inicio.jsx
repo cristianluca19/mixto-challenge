@@ -95,7 +95,7 @@ export default function Inicio() {
                 id="email"
                 label="Email"
                 name="email"
-                onChange={handleChange}                
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -134,12 +134,10 @@ export default function Inicio() {
           >
             Ingresar
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/registro" variant="body2">
-                No tienes cuenta? Registrate
+          <Grid item>
+            <Link href="/registro" variant="body2">
+              No tienes cuenta? Registrate
               </Link>
-            </Grid>
           </Grid>
         </form>
       </div>

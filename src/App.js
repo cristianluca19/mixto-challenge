@@ -9,9 +9,7 @@ function App() {
   return (
     <div className='App'>
       <Route extact path='/inicio' render={() => <Inicio />} />
-      
       <Route extact path='/registro' render={() => <Registro />} />
-      
     </div>
   );
 }
